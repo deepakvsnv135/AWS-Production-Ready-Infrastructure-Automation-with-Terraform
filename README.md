@@ -1,105 +1,99 @@
-# Ì∫Ä Modular AWS Infrastructure with Terraform (Production-Ready Backend)
+# AWS Production-Ready Infrastructure Automation with Terraform
 
-## Ì≥å Overview
+## Project Overview
 
-This project demonstrates a **production-style Terraform architecture** using:
+This project demonstrates a production-grade AWS infrastructure setup
+using Terraform. It follows DevOps best practices including remote state
+management, modular design, and infrastructure automation.
 
-* Modular infrastructure design
-* Remote S3 backend
-* DynamoDB state locking
-* Versioning & encryption enabled
-* Clean separation of bootstrap and main infrastructure
+The goal is to provision secure, scalable, and maintainable
+infrastructure using Infrastructure as Code (IaC).
 
-The goal of this repository is to showcase real-world Terraform practices, not just resource creation.
+------------------------------------------------------------------------
 
----
+## Architecture Components
 
-## Ìøó Architecture Components
+-   Amazon S3 (Terraform Remote State Storage)
+-   DynamoDB (State Locking Mechanism)
+-   Modular Terraform Structure
+-   Version-controlled Infrastructure
+-   Backend Configuration for Remote State
 
-### Ì¥π Backend (Bootstrap Project)
+------------------------------------------------------------------------
 
-* S3 bucket for Terraform state
-* Versioning enabled
-* Server-side encryption (AES256)
-* DynamoDB table for state locking
+## Key Features
 
-### Ì¥π Infrastructure (Main Project)
+-   Remote backend configuration using S3
+-   State locking using DynamoDB
+-   Modular and reusable Terraform code
+-   Environment-ready structure (can be extended to dev/stage/prod)
+-   Clean Git workflow
 
-* VPC
-* Subnet
-* EC2 Instance
-* Security Group
-* S3 bucket module
-* Network configuration
+------------------------------------------------------------------------
 
----
+## Project Structure
 
-## Ì≥Ç Project Structure
+terraform/ ‚îÇ ‚îú‚îÄ‚îÄ modules/ ‚îÇ ‚îî‚îÄ‚îÄ backend/ ‚îÇ ‚îú‚îÄ‚îÄ main.tf ‚îÇ ‚îú‚îÄ‚îÄ
+variables.tf ‚îÇ ‚îî‚îÄ‚îÄ outputs.tf ‚îÇ ‚îú‚îÄ‚îÄ main.tf ‚îú‚îÄ‚îÄ provider.tf ‚îú‚îÄ‚îÄ
+backend.tf ‚îî‚îÄ‚îÄ README.md
 
-```
-backend/   ‚Üí Creates remote backend infrastructure
-infra/     ‚Üí Main modular Terraform project
-```
+------------------------------------------------------------------------
 
----
+## Remote Backend Configuration
 
-## Ì∑† Why Separate Backend?
+Terraform state is stored securely in an S3 bucket. State locking is
+managed through DynamoDB to prevent concurrent modifications.
 
-Terraform backend must exist before Terraform can use it.
-To avoid circular dependency, backend infrastructure is provisioned separately.
+Example backend configuration:
 
-This reflects real-world DevOps practices.
+terraform { backend "s3" { bucket = "your-terraform-state-bucket" key =
+"global/terraform.tfstate" region = "ap-south-1" dynamodb_table =
+"terraform-locks" encrypt = true } }
 
----
+------------------------------------------------------------------------
 
-## ‚öôÔ∏è How to Use
+## How to Use
 
-### 1Ô∏è‚É£ Deploy Backend First
+1.  Initialize Terraform
 
-```
-cd backend
 terraform init
+
+2.  Validate Configuration
+
+terraform validate
+
+3.  Plan Infrastructure
+
+terraform plan
+
+4.  Apply Infrastructure
+
 terraform apply
-```
 
-### 2Ô∏è‚É£ Deploy Main Infrastructure
+------------------------------------------------------------------------
 
-```
-cd ../infra
-terraform init
-terraform apply
-```
+## DevOps Best Practices Implemented
 
----
+-   Remote state management
+-   State locking to prevent race conditions
+-   Modular infrastructure code
+-   Clean Git version control
+-   Infrastructure reproducibility
 
-## Ì¥ê Production Considerations
+------------------------------------------------------------------------
 
-* State stored remotely (S3)
-* State locking enabled (DynamoDB)
-* Versioning enabled
-* Encryption enabled
-* Modular reusable structure
+## Future Enhancements
 
----
+-   Multi-environment support (dev/stage/prod)
+-   CI/CD pipeline integration
+-   EKS cluster automation
+-   Monitoring and logging integration
+-   IAM role-based secure access
 
-## Ì≥à Skills Demonstrated
+------------------------------------------------------------------------
 
-* Terraform Modules
-* Remote Backend Configuration
-* Infrastructure Design Principles
-* State Management Strategy
-* Production-Ready Patterns
+## Author
 
----
-
-## Ì±®‚ÄçÌ≤ª Author
-
-Deepak Vaishnav
-AWS DevOps Engineer | Kubernetes Enthusiast | Infrastructure Automation
-
----
-
-## Ì≥ú License
-
-This project is open-source and free to use for learning and experimentation.
+Deepak Vaishnav AWS DevOps Engineer Infrastructure Automation \|
+Kubernetes \| CI/CD \| Cloud Architecture
 
