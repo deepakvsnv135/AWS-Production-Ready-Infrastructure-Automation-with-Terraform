@@ -1,0 +1,20 @@
+# Terraform folders
+.terraform/
+.terraform.lock.hcl
+
+# State files
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Backend config override
+backend_override.tf
+backend_override.tf.json
+
+# Sensitive files
+*.tfvars
+*.auto.tfvars
+
+# OS files
+.DS_Store
+Thumbs.db
